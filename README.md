@@ -14,7 +14,7 @@ de clase y benchmarks de rendimiento.
 
 ## Cómo clonar este repositorio
 
-\`\`\`bash
+```bash
 git clone https://github.com/Samuzarter/curso-analisis-algoritmos-samuelquiroz.git
 cd curso-analisis-algoritmos-samuelquiroz
-\`\`\`
+```

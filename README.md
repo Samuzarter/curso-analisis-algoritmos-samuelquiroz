@@ -18,3 +18,9 @@ de clase y benchmarks de rendimiento.
 git clone https://github.com/Samuzarter/curso-analisis-algoritmos-samuelquiroz.git
 cd curso-analisis-algoritmos-samuelquiroz
 ```
+
+## Autor
+
+- Nombre: Samuel Quiroz Rincón
+- Correo: samuelquiroz1113937@correo.itm.edu.co
+- Semestre: 2026-2 (Octavo Semestre De la Ingeniería en Sistemas)

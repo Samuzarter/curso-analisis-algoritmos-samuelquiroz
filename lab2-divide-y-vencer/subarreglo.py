@@ -28,3 +28,72 @@ def subarreglo_fuerza_bruta(valores: list[float]) -> tuple[int, int, float]:
 
     return mejor_inicio, mejor_fin, mejor_suma
 
+
+def suma_cruzada(
+    valores: list[float], inicio: int, medio: int, fin: int
+) -> tuple[int, int, float]:
+    """Encuentra el mejor tramo que cruza el punto medio.
+
+    Args:
+        valores: variacion diaria de caja.
+        inicio: indice inicial del rango considerado (inclusive).
+        medio: indice del ultimo elemento de la mitad izquierda.
+        fin: indice final del rango considerado (inclusive).
+
+    Returns:
+        Una tupla (inicio, fin, suma) del mejor tramo que incluye al
+        menos un elemento de cada mitad.
+    """
+
+    suma = valores[medio]
+    mejor_izquierda = suma
+    limite_izquierdo = medio
+    for i in range(medio - 1, inicio - 1, -1):
+        suma += valores[i]
+        if suma > mejor_izquierda:
+            mejor_izquierda = suma
+            limite_izquierdo = i
+
+    suma = valores[medio + 1]
+    mejor_derecha = suma
+    limite_derecho = medio + 1
+    for j in range(medio + 2, fin + 1):
+        suma += valores[j]
+        if suma > mejor_derecha:
+            mejor_derecha = suma
+            limite_derecho = j
+
+    return limite_izquierdo, limite_derecho, mejor_izquierda + mejor_derecha
+
+
+def subarreglo_maximo(
+    valores: list[float], inicio: int, fin: int
+) -> tuple[int, int, float]:
+    """Encuentra la mejor racha por divide y venceras.
+
+    Args:
+        valores: variacion diaria de caja.
+        inicio: indice inicial del rango a considerar (inclusive).
+        fin: indice final del rango a considerar (inclusive).
+
+    Returns:
+        Una tupla (inicio, fin, suma) del mejor tramo dentro de
+        valores[inicio..fin].
+    """
+
+    if inicio == fin:
+        return inicio, fin, valores[inicio]
+
+
+    medio = (inicio + fin) // 2
+
+    izquierda = subarreglo_maximo(valores, inicio, medio)
+    derecha = subarreglo_maximo(valores, medio + 1, fin)
+
+    cruzada = suma_cruzada(valores, inicio, medio, fin)
+
+    if izquierda[2] >= derecha[2] and izquierda[2] >= cruzada[2]:
+        return izquierda
+    if derecha[2] >= cruzada[2]:
+        return derecha
+    return cruzada
